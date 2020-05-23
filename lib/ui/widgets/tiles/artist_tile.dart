@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
 import '../controls/custom_grid_tile.dart';
-import '../../dialogs/albums_dialog.dart';
+import '../../screens/albums_page.dart';
 
 class ArtistTile extends StatelessWidget {
   final ArtistInfo artistInfo;
@@ -29,13 +29,6 @@ class ArtistTile extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    showDialog(context: context,
-      builder: (ctx) {
-        return AlbumsDialog(
-          artistName: artistInfo.name
-        );
-      },
-      barrierDismissible: false
-    );
+    Navigator.of(context).pushNamed(AlbumsPage.routeName, arguments: artistInfo.name);
   }
 }

@@ -2,6 +2,9 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'services/audio_service.dart' as AS;
+import 'ui/screens/albums_page.dart';
+import 'ui/screens/songs_page.dart';
 import 'home.dart';
 import 'services/background_player.dart';
 
@@ -33,6 +36,10 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: AudioServiceWidget(child: Home()),
+      routes: {
+        AlbumsPage.routeName: (ctx) => AlbumsPage(audioService: AS.AudioService(),),
+        SongsPage.routeName: (ctx) => SongsPage(audioService: AS.AudioService(),)
+      }
     );
   }
   

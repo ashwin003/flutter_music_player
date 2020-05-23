@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
+import '../../../models/request_songs.dart';
 import '../controls/custom_grid_tile.dart';
-import '../../dialogs/songs_dialog.dart';
+import '../../screens/songs_page.dart';
 
 class PlaylistTile extends StatelessWidget {
   final PlaylistInfo playlistInfo;
@@ -28,13 +29,9 @@ class PlaylistTile extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    showDialog(context: context,
-      builder: (ctx) {
-        return SongsDialog(
-          playlistInfo: playlistInfo,
-        );  
-      },
-      barrierDismissible: false
+    var arguments = RequestSongs(
+      playlistInfo: playlistInfo
     );
+    Navigator.of(context).pushNamed(SongsPage.routeName, arguments: arguments);
   }
 }
