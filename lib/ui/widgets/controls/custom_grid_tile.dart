@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'artwork.dart';
+import 'hero_artwork.dart';
 
 class CustomGridTile extends StatelessWidget {
   final String imagePath;
@@ -23,7 +23,7 @@ class CustomGridTile extends StatelessWidget {
             title: Text(title ?? '', softWrap: true, maxLines: 2, style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.black87),),
             subtitle: Text(subtitle ?? '', style: Theme.of(context).textTheme.caption.apply(color: Colors.black54),),
           ),
-          child: Artwork(
+          child: HeroArtwork(
             path: imagePath,
             id: id,
           ),

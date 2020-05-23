@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_music_player/ui/widgets/controls/artwork.dart';
 
+import '../widgets/controls/hero_artwork.dart';
 import '../../models/request_songs.dart';
 import '../../services/audio_service.dart';
 import '../widgets/list_songs.dart';
@@ -55,22 +55,22 @@ class SongsPage extends StatelessWidget {
     return LoadSongsList(songs: audioService.getSongs(),);
   }
 
-  Artwork _prepareArtwork(RequestSongs request) {
+  HeroArtwork _prepareArtwork(RequestSongs request) {
     if(request.playlistInfo != null) {
-      return Artwork(
-        id: request.playlistInfo.id,
+      return HeroArtwork(
+        id: request.playlistInfo.hashCode.toString(),
         path: null,
       );
     }
     if(request.albumInfo != null) {
-      return Artwork(
-        id: request.albumInfo.id,
+      return HeroArtwork(
+        id: request.albumInfo.hashCode.toString(),
         path: request.albumInfo.albumArt,
       );
     }
     if(request.artistInfo != null) {
-      return Artwork(
-        id: request.artistInfo.id,
+      return HeroArtwork(
+        id: request.artistInfo.hashCode.toString(),
         path: request.artistInfo.artistArtPath,
       );
     }
