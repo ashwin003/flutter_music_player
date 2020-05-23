@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_music_player/ui/widgets/controls/artwork.dart';
 
 import '../../services/audio_service.dart';
 import '../widgets/grid_list_builder.dart';
@@ -14,12 +15,21 @@ class AlbumsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var artistName = ModalRoute.of(context).settings.arguments as String;
+    var artistInfo = ModalRoute.of(context).settings.arguments as ArtistInfo;
     return Scaffold(
       appBar: AppBar(
-        title: _prepareHeader(artistName),
+        title: _prepareHeader(artistInfo.name),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Artwork(
+              id: artistInfo.id,
+              path: artistInfo.artistArtPath,
+            ),
+          ),
+        ],
       ),
-      body: _buildSongsList(artistName),
+      body: _buildSongsList(artistInfo.name),
     );
   }
 

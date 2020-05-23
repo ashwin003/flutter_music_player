@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_music_player/ui/widgets/controls/artwork.dart';
 
 import '../../models/request_songs.dart';
 import '../../services/audio_service.dart';
@@ -17,6 +18,12 @@ class SongsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: _prepareHeader(request),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: _prepareArtwork(request)
+          )
+        ],
       ),
       body: _buildSongsList(request),
     );
@@ -26,8 +33,11 @@ class SongsPage extends StatelessWidget {
     if(request.playlistInfo != null) {
       return Text(request.playlistInfo.name ?? '');
     }
-    if(request.albumId != null || request.artistName != null) {
-      return Text(request.title ?? '');
+    else if(request.albumInfo != null) {
+      return Text(request.albumInfo.title ?? '');
+    }
+    else if(request.artistInfo != null) {
+      return Text(request.artistInfo.name ?? '');
     }
     return Text('');
   }
@@ -36,12 +46,34 @@ class SongsPage extends StatelessWidget {
     if(request.playlistInfo != null) {
       return LoadSongsList(songs: audioService.getSongsFromPlaylist(request.playlistInfo),);
     }
-    if(request.albumId != null) {
-      return LoadSongsList(songs: audioService.getSongsFromAlbum(request.albumId),);  
+    if(request.albumInfo != null) {
+      return LoadSongsList(songs: audioService.getSongsFromAlbum(request.albumInfo.id),);  
     }
-    if(request.artistName != null) {
-      return LoadSongsList(songs: audioService.getSongsFromArtist(request.artistName));  
+    if(request.artistInfo != null) {
+      return LoadSongsList(songs: audioService.getSongsFromArtist(request.artistInfo.name));  
     }
     return LoadSongsList(songs: audioService.getSongs(),);
+  }
+
+  Artwork _prepareArtwork(RequestSongs request) {
+    if(request.playlistInfo != null) {
+      return Artwork(
+        id: request.playlistInfo.id,
+        path: null,
+      );
+    }
+    if(request.albumInfo != null) {
+      return Artwork(
+        id: request.albumInfo.id,
+        path: request.albumInfo.albumArt,
+      );
+    }
+    if(request.artistInfo != null) {
+      return Artwork(
+        id: request.artistInfo.id,
+        path: request.artistInfo.artistArtPath,
+      );
+    }
+    return null;
   }
 }

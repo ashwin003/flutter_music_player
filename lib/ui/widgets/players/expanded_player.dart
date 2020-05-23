@@ -85,7 +85,7 @@ class ExpandedPlayer extends StatelessWidget {
           alignment: FractionalOffset.center,
           transform: Matrix4.identity()
           ..scale(scaleFactor),
-          child: Artwork(path: artwork)
+          child: Artwork(path: artwork, id: 'expanded-player',)
         );
   }
 

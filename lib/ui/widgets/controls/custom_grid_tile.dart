@@ -7,9 +7,10 @@ class CustomGridTile extends StatelessWidget {
   final String imagePath;
   final String title;
   final String subtitle;
+  final String id;
   final Function onTap;
 
-  const CustomGridTile({Key key, this.imagePath, this.title, this.subtitle, this.onTap}) : super(key: key);
+  const CustomGridTile({Key key, this.imagePath, this.title, this.subtitle, this.onTap, this.id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,6 +25,7 @@ class CustomGridTile extends StatelessWidget {
           ),
           child: Artwork(
             path: imagePath,
+            id: id,
           ),
         )
       ),

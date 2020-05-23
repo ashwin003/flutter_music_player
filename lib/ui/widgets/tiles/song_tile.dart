@@ -22,6 +22,7 @@ class SongTile extends StatelessWidget {
           contentPadding: EdgeInsets.all(8),
           leading: Artwork(
             path: songInfo.artUri,
+            id: songInfo.id,
           ),
           title: Text(songInfo.title,),
           subtitle: Text(_prepareSubTitle(), maxLines: 2,),

@@ -17,14 +17,14 @@ class AlbumTile extends StatelessWidget {
       imagePath: albumInfo.albumArt,
       title: albumInfo.title,
       subtitle: albumInfo.artist,
+      id: albumInfo.id,
       onTap: () => _onTap(context),
     );
   }
 
   void _onTap(BuildContext context) {
     var arguments = RequestSongs(
-      albumId: albumInfo.id,
-      title: albumInfo.title
+      albumInfo: albumInfo
     );
     Navigator.of(context).pushNamed(SongsPage.routeName, arguments: arguments);
   }

@@ -15,6 +15,7 @@ class ArtistTile extends StatelessWidget {
     return CustomGridTile(
       imagePath: artistInfo.artistArtPath,
       title: artistInfo.name,
+      id: artistInfo.id,
       subtitle: _prepareSubtitle(artistInfo.numberOfAlbums),
       onTap: () => _onTap(context),
     );
@@ -29,6 +30,6 @@ class ArtistTile extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    Navigator.of(context).pushNamed(AlbumsPage.routeName, arguments: artistInfo.name);
+    Navigator.of(context).pushNamed(AlbumsPage.routeName, arguments: artistInfo);
   }
 }

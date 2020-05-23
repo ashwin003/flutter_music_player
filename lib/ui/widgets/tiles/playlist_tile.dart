@@ -16,6 +16,7 @@ class PlaylistTile extends StatelessWidget {
       imagePath: null,
       title: playlistInfo.name,
       subtitle: _prepareSubtitle(playlistInfo.memberIds.length),
+      id: playlistInfo.id,
       onTap: () => _onTap(context),
     );
   }

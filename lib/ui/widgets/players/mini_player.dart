@@ -45,7 +45,7 @@ class MiniPlayer extends StatelessWidget {
 
   ListTile _buildFallbackContents() {
     return ListTile(
-      leading: Artwork(path: null,),
+      leading: Artwork(path: null, id: 'mini-player',),
       title: Text('Select A Song'),
       subtitle: Text(''),
     );
