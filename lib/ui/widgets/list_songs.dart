@@ -38,16 +38,19 @@ class ListSongs extends StatelessWidget {
                 return _prepareFirstRow(context);
               }
               return SongTile(songs[index], (song) => {
-                _handleTapped(song)
+                _handleTapped(song, false)
               });
             },
           ),
     );
   }
 
-  void _handleTapped(MediaItem selectedSong) async {
-    await AudioService.replaceQueue(songs);
-    await AudioService.playMediaItem(selectedSong);
+  void _handleTapped(MediaItem selectedSong, bool toShuffle) async {
+    AudioService.replaceQueue(songs);
+    AudioService.customAction('shuffle', toShuffle);
+    if(!toShuffle) {
+      await AudioService.playMediaItem(selectedSong);
+    }
   }
 
   Widget _prepareFirstRow(BuildContext context) {
@@ -55,7 +58,7 @@ class ListSongs extends StatelessWidget {
       children: <Widget>[
         _prepareShuffleWidget(),
         SongTile(songs[0], (song) => {
-          _handleTapped(song)
+          _handleTapped(song, false)
         } )
       ],
     );
@@ -76,6 +79,9 @@ class ListSongs extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16.0),
             child: Text('Shuffle All'),
           ),
+          onTap: () {
+            _handleTapped(null, true);
+          },
         ),
       ),
     );

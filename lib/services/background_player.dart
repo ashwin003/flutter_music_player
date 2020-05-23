@@ -45,6 +45,13 @@ class BackgroundPlayer extends BackgroundAudioTask {
     if("repeat" == name) {
       _repeat = arguments as bool;
     }
+    if("shuffle" == name) {
+      var toShuffle = arguments as bool;
+      if(toShuffle) {
+        _queue.shuffle();
+        onPlayMediaItem(_queue.first);
+      }
+    }
   }
 
   @override

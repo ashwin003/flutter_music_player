@@ -11,6 +11,7 @@ Works on Android only.
     a. Scrubbing control
     b. Notification controls
     c. Lock screen controls
+4. Shuffle songs
 
 ## Packages used
 1. [audio_service](https://pub.dev/packages/audio_service) - Service for playing media files in the background

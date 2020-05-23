@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:tuple/tuple.dart';
 
 import '../../../models/request_songs.dart';
 import '../controls/custom_grid_tile.dart';
@@ -8,8 +9,9 @@ import '../../screens/songs_page.dart';
 
 class PlaylistTile extends StatelessWidget {
   final PlaylistInfo playlistInfo;
+  final ValueSetter<Tuple2<String, dynamic>> actionsHandler;
 
-  const PlaylistTile({Key key, this.playlistInfo}) : super(key: key);
+  const PlaylistTile({Key key, @required this.playlistInfo, this.actionsHandler}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return CustomGridTile(
@@ -18,6 +20,7 @@ class PlaylistTile extends StatelessWidget {
       subtitle: _prepareSubtitle(playlistInfo.memberIds.length),
       id: playlistInfo.id,
       onTap: () => _onTap(context),
+      actionsHandler: _actionsHandler,
     );
   }
 
@@ -34,5 +37,11 @@ class PlaylistTile extends StatelessWidget {
       playlistInfo: playlistInfo
     );
     Navigator.of(context).pushNamed(SongsPage.routeName, arguments: arguments);
+  }
+
+  void _actionsHandler(String action) {
+    if(actionsHandler != null) {
+      actionsHandler(Tuple2<String, dynamic>(action, playlistInfo));
+    }
   }
 }
