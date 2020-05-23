@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:audio_service/audio_service.dart' as AS;
 
+import '../../mixins/actions_handler.dart';
 import '../../ui/widgets/grid_list_builder.dart';
 import '../../services/audio_service.dart';
 import '../widgets/tiles/artist_tile.dart';
@@ -12,7 +12,7 @@ class ArtistsTab extends StatefulWidget {
   _ArtistsTabState createState() => _ArtistsTabState();
 }
 
-class _ArtistsTabState extends State<ArtistsTab> {
+class _ArtistsTabState extends State<ArtistsTab> with ActionsHandler {
   AudioService service;
 
   @override
@@ -29,21 +29,11 @@ class _ArtistsTabState extends State<ArtistsTab> {
         return ArtistTile(
           artistInfo: artistInfo,
           actionsHandler: (data) {
-            _handleActions(data.item1, data.item2);
+            handleAction(service.getSongsFromArtist(data.item2.toString()), data.item1);
           },
         );
       },
       itemSpacing: EdgeInsets.symmetric(horizontal: 8,),
     );
-  }
-
-  void _handleActions(String action, dynamic identifier) async {
-    var songs = await service.getSongsFromArtist(identifier.toString());
-    AS.AudioService.replaceQueue(songs);
-    if('Play' == action) {
-      AS.AudioService.playMediaItem(songs.first);
-    } else if('Shuffle' == action) {
-      AS.AudioService.customAction('shuffle', true);
-    }
   }
 }

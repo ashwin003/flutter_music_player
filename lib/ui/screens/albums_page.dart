@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../mixins/album_actions_handler.dart';
+import '../../mixins/actions_handler.dart';
 import '../widgets/controls/hero_artwork.dart';
 import '../../services/audio_service.dart';
 import '../widgets/grid_list_builder.dart';
 import '../widgets/tiles/album_tile.dart';
 
-class AlbumsPage extends StatelessWidget with AlbumActionsHandler {
+class AlbumsPage extends StatelessWidget with ActionsHandler {
   final AudioService audioService;
   static const String routeName = "/artist-albums";
 
@@ -48,7 +48,7 @@ class AlbumsPage extends StatelessWidget with AlbumActionsHandler {
         return AlbumTile(
           albumInfo: albumInfo,
           actionsHandler: (data) {
-            handleAction(audioService, data.item1, data.item2);
+            handleAction(audioService.getSongsFromAlbum(data.item2.toString()), data.item1);
           },
         );
       },
