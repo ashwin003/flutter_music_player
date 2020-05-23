@@ -33,6 +33,13 @@ class BackgroundPlayer extends BackgroundAudioTask {
     return _queue.indexOf(_currentlyPlaying) != 0;
   }
 
+  String _prepareFileUri(String artUri) {
+    if(artUri == null) {
+      return null;
+    }
+    return 'file:/$artUri';
+  }
+
   void playPause() {
     if (AudioServiceBackground.state.basicState == BasicPlaybackState.playing)
       onPause();
@@ -126,11 +133,11 @@ class BackgroundPlayer extends BackgroundAudioTask {
   @override
   void onPlay() async{
     _playbackState = AudioPlaybackState.playing;
-    AudioServiceBackground.setMediaItem(_currentlyPlaying);
+    AudioServiceBackground.setMediaItem(_currentlyPlaying.copyWith(artUri: _prepareFileUri(_currentlyPlaying.artUri) ));
     AudioServiceBackground.setQueue(_queue);
     AudioServiceBackground.setState(
       basicState: BasicPlaybackState.playing, 
-      controls: [skipToPreviousControl, pauseControl, skipToNextControl], 
+      controls: [skipToPreviousControl, pauseControl, skipToNextControl, stopControl], 
       systemActions: [MediaAction.seekTo],
       updateTime: DateTime.now().millisecondsSinceEpoch,
       position: _position.inMilliseconds,
@@ -151,7 +158,7 @@ class BackgroundPlayer extends BackgroundAudioTask {
     _playbackState = AudioPlaybackState.paused;
     AudioServiceBackground.setState(
       basicState: BasicPlaybackState.paused, 
-      controls: [skipToPreviousControl, playControl, skipToNextControl], 
+      controls: [skipToPreviousControl, playControl, skipToNextControl, stopControl], 
       systemActions: [MediaAction.seekTo],
       updateTime: DateTime.now().millisecondsSinceEpoch,
       position: _position.inMilliseconds,

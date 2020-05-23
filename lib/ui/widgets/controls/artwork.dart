@@ -11,7 +11,7 @@ class Artwork extends StatelessWidget {
     return path == null ? _loadAssetImage() : _loadImageFromPath();
   }
 
-  Image _loadImageFromPath() => Image.file(File(path));
+  Image _loadImageFromPath() => Image.file(File(path.replaceFirst('file:/', '')));
 
   Image _loadAssetImage() => Image.asset("assets/images/default-backdrop.png");
 }

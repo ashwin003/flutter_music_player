@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         androidNotificationChannelName: 'Music Player',
         enableQueue: true,
         androidStopOnRemoveTask: true,
+        androidNotificationOngoing: true,
       );
     }
     
