@@ -1,18 +1,18 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 
+import 'mixins/bottom_sheet_handler.dart';
 import 'ui/screens/albums_tab.dart';
 import 'ui/screens/artists_tab.dart';
 import 'ui/screens/playlists_tab.dart';
 import 'ui/screens/songs_tab.dart';
-import 'ui/widgets/players/bottom_sheet_container.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with WidgetsBindingObserver {
+class _HomeState extends State<Home> with WidgetsBindingObserver, BottomSheetHandler {
   @override
   Widget build(BuildContext context) {
     return _buildTabController();
@@ -44,7 +44,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
       length: 4,
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: _buildMainContents(),
+        body: addBottomSheet(
+          child: _buildTabBarView()
+        ),
       ),
     );
   }
@@ -72,16 +74,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               Tab(text: 'Songs',),
             ],
           );
-  }
-
-  Widget _buildMainContents() {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        _buildTabBarView(),
-        BottomSheetContainer(),
-      ],
-    );
   }
 
   TabBarView _buildTabBarView() {

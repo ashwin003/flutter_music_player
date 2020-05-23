@@ -19,5 +19,4 @@ Works on Android only.
 3. [just_audio](https://pub.dev/packages/just_audio) - Media player
 
 ## Known issues
-1. Artist, Album, Playlist dialog overlaps and completely hides the player sheet.
-2. Does not load artwork for Android 10
+1. Does not load artwork for Android 10

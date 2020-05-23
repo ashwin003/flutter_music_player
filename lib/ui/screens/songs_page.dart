@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../mixins/bottom_sheet_handler.dart';
 import '../widgets/controls/hero_artwork.dart';
 import '../../models/request_songs.dart';
 import '../../services/audio_service.dart';
 import '../widgets/list_songs.dart';
 
-class SongsPage extends StatelessWidget {
+class SongsPage extends StatelessWidget with BottomSheetHandler {
   static const String routeName = "/songs";
   final AudioService audioService;
 
@@ -25,7 +26,9 @@ class SongsPage extends StatelessWidget {
           )
         ],
       ),
-      body: _buildSongsList(request),
+      body: addBottomSheet(
+        child: _buildSongsList(request),
+      ),
     );
   }
 

@@ -52,18 +52,21 @@ class SeekBar extends StatelessWidget {
       builder: (ctx, AsyncSnapshot<double> snapshot) {
         var pos = snapshot.data ?? position.roundToDouble();
         var dur = duration.roundToDouble();
-        return Slider(
-          min: 0.0,
-          max: dur,
-          value: seekPos ?? max(0.0, min(pos, dur)),
-          onChanged: (value) {
-            _dragPositionSubject.add(value);
-          },
-          onChangeEnd: (value) {
-            AudioService.seekTo(value.toInt());
-            seekPos = value;
-            _dragPositionSubject.add(null);
-          },
+        return SizedBox(
+          width: width,
+          child: Slider(
+            min: 0.0,
+            max: dur,
+            value: seekPos ?? max(0.0, min(pos, dur)),
+            onChanged: (value) {
+              _dragPositionSubject.add(value);
+            },
+            onChangeEnd: (value) {
+              AudioService.seekTo(value.toInt());
+              seekPos = value;
+              _dragPositionSubject.add(null);
+            },
+          ),
         );
       },
     );
