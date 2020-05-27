@@ -2,6 +2,7 @@
 
 A music player build entirely in Flutter as a learning exercise.
 Works on Android only.
+Feel free to suggest improvements as well as additional (or missing) functionalities
 
 ## Functionalities
 ### Included
