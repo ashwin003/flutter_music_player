@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_music_player/services/audio_service.dart';
 import 'package:tuple/tuple.dart';
 
 import '../controls/custom_grid_tile.dart';
@@ -33,7 +34,14 @@ class ArtistTile extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    Navigator.of(context).pushNamed(AlbumsPage.routeName, arguments: artistInfo);
+    Navigator.push(context, MaterialPageRoute(
+      builder: (ctx) {
+        return AlbumsPage(
+          audioService: AudioService(),
+          artistInfo: artistInfo,
+        );
+      }
+    ));
   }
 
   void _actionsHandler(String action) {

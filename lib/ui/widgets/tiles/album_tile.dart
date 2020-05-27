@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_music_player/services/audio_service.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../models/request_songs.dart';
@@ -29,7 +30,14 @@ class AlbumTile extends StatelessWidget {
     var arguments = RequestSongs(
       albumInfo: albumInfo
     );
-    Navigator.of(context).pushNamed(SongsPage.routeName, arguments: arguments);
+    Navigator.push(context, MaterialPageRoute(
+      builder: (ctx) {
+        return SongsPage(
+          audioService: AudioService(),
+          request: arguments,
+        );
+      }
+    ));
   }
 
   void _actionsHandler(String action) {

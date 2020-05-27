@@ -54,15 +54,14 @@ class _BottomSheetContainerState extends State<BottomSheetContainer> with Single
 
   @override
   Widget build(BuildContext context) {
-    print(AudioServiceBackground.state.basicState);
     return AnimatedBuilder(
       animation: _controller,
       builder: (ctx, child){
         return Positioned(
           height: _lerp(minHeight, maxHeight),
           left: 0,
+          bottom: -5,
           right: 0,
-          bottom: 0,
           child: _buildMainContents(ctx)
         );
       },

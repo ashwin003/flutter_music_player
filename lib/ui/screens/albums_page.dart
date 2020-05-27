@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 
-import '../../mixins/bottom_sheet_handler.dart';
 import '../../mixins/actions_handler.dart';
 import '../widgets/controls/hero_artwork.dart';
 import '../../services/audio_service.dart';
 import '../widgets/grid_list_builder.dart';
 import '../widgets/tiles/album_tile.dart';
 
-class AlbumsPage extends StatelessWidget with ActionsHandler, BottomSheetHandler {
+class AlbumsPage extends StatelessWidget with ActionsHandler {
   final AudioService audioService;
+  final ArtistInfo artistInfo;
   static const String routeName = "/artist-albums";
 
-  const AlbumsPage({Key key, this.audioService}) : super(key: key);
+  const AlbumsPage({Key key, @required this.audioService, @required this.artistInfo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var artistInfo = ModalRoute.of(context).settings.arguments as ArtistInfo;
     return Scaffold(
       appBar: AppBar(
         title: _prepareHeader(artistInfo.name),
@@ -31,9 +30,7 @@ class AlbumsPage extends StatelessWidget with ActionsHandler, BottomSheetHandler
           ),
         ],
       ),
-      body: addBottomSheet(
-        child: _buildSongsList(artistInfo.name),
-      ),
+      body: _buildSongsList(artistInfo.name),
     );
   }
 

@@ -65,8 +65,8 @@ class _CustomGridTileState extends State<CustomGridTile> {
         child: GridTile(
           footer: GridTileBar(
             backgroundColor: Theme.of(context).accentColor.withOpacity(0.85),
-            title: Text(widget.title ?? '', softWrap: true, maxLines: 2, style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.black87),),
-            subtitle: Text(widget.subtitle ?? '', style: Theme.of(context).textTheme.caption.apply(color: Colors.black54),),
+            title: Text(widget.title ?? '', softWrap: true, maxLines: 2, style: Theme.of(context).textTheme.subtitle1,),
+            subtitle: Text(widget.subtitle ?? '', style: Theme.of(context).textTheme.caption,),
           ),
           child: HeroArtwork(
             path: widget.imagePath,
