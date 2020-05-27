@@ -4,6 +4,33 @@ import 'package:flutter/widgets.dart';
 
 import '../widgets/tiles/song_tile.dart';
 
+typedef ListTileWidgetBuilder<T> = Widget Function(T data);
+
+class ListBuilder<T> extends StatelessWidget {
+  final Future<List<T>> elements;
+  final ListTileWidgetBuilder<T> builder;
+
+  const ListBuilder({Key key, this.elements, this.builder}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: elements,
+      builder: (_, AsyncSnapshot<List<T>> snapshot) {
+        if(snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (ctx, index) {
+              return builder(snapshot.data[index]);
+            },
+          );
+        }
+        return Center(child: CircularProgressIndicator() ,);
+      },
+    );
+  }
+}
+
 class LoadSongsList extends StatelessWidget {
   final Future<List<MediaItem>> songs;
 

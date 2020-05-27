@@ -16,17 +16,20 @@ void backgroundTaskEntryPoint() {
   AudioServiceBackground.run(() => BackgroundPlayer());
 }
 
+void startAudioService() {
+  AudioService.start(
+    backgroundTaskEntrypoint: backgroundTaskEntryPoint,
+    androidNotificationChannelName: 'Music Player',
+    enableQueue: true,
+    androidStopOnRemoveTask: true,
+  );
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if(!AudioService.running) {
-      AudioService.start(
-        backgroundTaskEntrypoint: backgroundTaskEntryPoint,
-        androidNotificationChannelName: 'Music Player',
-        enableQueue: true,
-        androidStopOnRemoveTask: true,
-        androidNotificationOngoing: true,
-      );
+      startAudioService();
     }
     
     return MaterialApp(

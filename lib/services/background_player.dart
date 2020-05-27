@@ -9,6 +9,8 @@ class BackgroundPlayer extends BackgroundAudioTask {
   
   AudioPlayer _player = AudioPlayer();
   Completer _completer = Completer();
+  StreamSubscription<Duration> _subscription;
+  StreamSubscription<AudioPlaybackState> _playbackStateSubscription;
   List<MediaItem> _queue = new List<MediaItem>();
   MediaItem _currentlyPlaying;
   Duration _position;
@@ -63,24 +65,26 @@ class BackgroundPlayer extends BackgroundAudioTask {
 
   @override
   Future<void> onStart() async {
-    Rx.combineLatest2(_player.getPositionStream(), Stream.periodic(Duration(milliseconds: 500)), (Duration positionStream, _) => positionStream)
+    _subscription = Rx.combineLatest2(_player.getPositionStream(), Stream.periodic(Duration(milliseconds: 500)), (Duration positionStream, _) => positionStream)
     .listen(
       (duration) {
         _position = duration;
         var basicPlaybackState = _playbackState.toBasicPlaybackState();
-        AudioServiceBackground.setState(
-          basicState: basicPlaybackState, 
-          controls: [
-            skipToPreviousControl, 
-            if(basicPlaybackState == BasicPlaybackState.playing) pauseControl, 
-            if(basicPlaybackState == BasicPlaybackState.paused) playControl, 
-            skipToNextControl], 
-          systemActions: [MediaAction.seekTo],
-          updateTime: DateTime.now().millisecondsSinceEpoch,
-          position: _position.inMilliseconds,
-        );
+        if(AudioServiceBackground.state.basicState == BasicPlaybackState.playing) {
+          AudioServiceBackground.setState(
+            basicState: basicPlaybackState, 
+            controls: [
+              skipToPreviousControl, 
+              if(basicPlaybackState == BasicPlaybackState.playing) pauseControl, 
+              if(basicPlaybackState == BasicPlaybackState.paused) playControl, 
+              skipToNextControl], 
+            systemActions: [MediaAction.seekTo],
+            updateTime: DateTime.now().millisecondsSinceEpoch,
+            position: _position.inMilliseconds,
+          );
+        }
       });
-    _player.playbackStateStream.where((event) => event == AudioPlaybackState.completed).listen((event) {
+    _playbackStateSubscription = _player.playbackStateStream.where((event) => event == AudioPlaybackState.completed).listen((event) {
       onSkipToNext();
      });
     await _completer.future;
@@ -125,6 +129,8 @@ class BackgroundPlayer extends BackgroundAudioTask {
       basicState: BasicPlaybackState.stopped, 
       controls: [], 
       systemActions: []);
+    _subscription.cancel();
+    _playbackStateSubscription.cancel();
     await _player.stop();
     _completer.complete();
     

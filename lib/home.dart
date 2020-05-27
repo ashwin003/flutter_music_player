@@ -55,14 +55,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver, BottomSheetHan
     return AppBar(
               title: Text('Music Player'),
               bottom: _buildTabBar(),
-              actions: _buildActions(),
         );
-  }
-
-  List<Widget> _buildActions() {
-    return <Widget>[
-      _prepareAction(Icons.settings, (){})
-    ];
   }
 
   TabBar _buildTabBar() {
@@ -85,15 +78,5 @@ class _HomeState extends State<Home> with WidgetsBindingObserver, BottomSheetHan
             SongsTab(),
           ],
         );
-  }
-
-  Widget _prepareAction(IconData icon, Function onPressed) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0),
-      child: IconButton(
-        icon: Icon(icon),
-        onPressed: onPressed,
-      ),
-    );
   }
 }

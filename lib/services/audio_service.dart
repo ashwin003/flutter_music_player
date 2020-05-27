@@ -59,4 +59,8 @@ class AudioService {
     List<PlaylistInfo> playlists = await audioQuery.getPlaylists();
     return playlists;
   }
+
+  Future<PlaylistInfo> createPlaylist(String playlistName) async {
+    return await FlutterAudioQuery.createPlaylist(playlistName: playlistName);
+  }
 }

@@ -34,7 +34,6 @@ class _PlaylistsTabState extends State<PlaylistsTab> with ActionsHandler {
         );
       },
       itemSpacing: EdgeInsets.symmetric(horizontal: 8,),
-      predicate: (playlistInfo) => playlistInfo.memberIds.isNotEmpty,
     );
   }
 }

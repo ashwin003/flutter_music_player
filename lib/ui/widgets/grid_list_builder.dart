@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 
 typedef GridTileWidgetBuilder<T> = Widget Function(T data);
 
-typedef Predicate<T> = bool Function(T data);
-
 class GridListBuilder<T> extends StatelessWidget {
   final Future<List<T>> elements;
   final GridTileWidgetBuilder<T> builder;
   final EdgeInsetsGeometry itemSpacing;
-  final Predicate<T> predicate;
 
-  const GridListBuilder({Key key, @required this.elements, @required this.builder, this.itemSpacing, this.predicate}) : super(key: key);
+  const GridListBuilder({Key key, @required this.elements, @required this.builder, this.itemSpacing}) : super(key: key);
 
   int _getColumnCount(BuildContext context){
     final MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -31,9 +28,7 @@ class GridListBuilder<T> extends StatelessWidget {
           return GridView.count(
             padding: EdgeInsets.symmetric(horizontal: 8,),
             crossAxisCount: _getColumnCount(context),
-            children: predicate == null ? 
-                        snapshot.data.map((a) => builder(a)).toList() : 
-                        snapshot.data.where((element) => predicate(element)).map((e) => builder(e)).toList(),
+            children: snapshot.data.map((a) => builder(a)).toList(),
             );
         }
         return Center(child: CircularProgressIndicator() ,);
