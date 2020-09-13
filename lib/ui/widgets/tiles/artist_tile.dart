@@ -11,7 +11,8 @@ class ArtistTile extends StatelessWidget {
   final ArtistInfo artistInfo;
   final ValueSetter<Tuple2<String, dynamic>> actionsHandler;
 
-  const ArtistTile({Key key,@required this.artistInfo, this.actionsHandler}) : super(key: key);
+  const ArtistTile({Key key, @required this.artistInfo, this.actionsHandler})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ArtistTile extends StatelessWidget {
   }
 
   String _prepareSubtitle(String numberOfAlbums) {
-    if(int.parse(numberOfAlbums) == 1) {
+    if (int.parse(numberOfAlbums) == 1) {
       return "1 Album";
     }
 
@@ -34,19 +35,17 @@ class ArtistTile extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(
-      builder: (ctx) {
-        return AlbumsPage(
-          audioService: AudioService(),
-          artistInfo: artistInfo,
-        );
-      }
-    ));
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+      return AlbumsPage(
+        audioService: AudioService(),
+        artistInfo: artistInfo,
+      );
+    }));
   }
 
   void _actionsHandler(String action) {
-    if(actionsHandler != null) {
-      actionsHandler(Tuple2<String, dynamic>(action, artistInfo.name));
+    if (actionsHandler != null) {
+      actionsHandler(Tuple2<String, dynamic>(action, artistInfo.id));
     }
   }
 }

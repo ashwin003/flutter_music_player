@@ -7,27 +7,46 @@ class AudioService {
 
   Future<List<MediaItem>> getSongs() async {
     List<SongInfo> songs = await audioQuery.getSongs();
-    return songs.where((song) => song.isMusic).map((s) => s.toMediaItem()).toList();
+    return songs
+        .where((song) => song.isMusic)
+        .map((s) => s.toMediaItem())
+        .toList();
   }
 
   Future<List<MediaItem>> getSongsFromAlbum(String albumId) async {
     List<SongInfo> songs = await audioQuery.getSongsFromAlbum(albumId: albumId);
-    return songs.where((song) => song.isMusic).map((s) => s.toMediaItem()).toList();
+    return songs
+        .where((song) => song.isMusic)
+        .map((s) => s.toMediaItem())
+        .toList();
   }
 
-  Future<List<MediaItem>> getSongsFromArtist(String artistName) async {
-    List<SongInfo> songs = await audioQuery.getSongsFromArtist(artist: artistName);
-    return songs.where((song) => song.isMusic).map((s) => s.toMediaItem()).toList();
+  Future<List<MediaItem>> getSongsFromArtist(String artistId) async {
+    List<SongInfo> songs =
+        await audioQuery.getSongsFromArtist(artistId: artistId);
+    return songs
+        .where((song) => song.isMusic)
+        .map((s) => s.toMediaItem())
+        .toList();
   }
 
-  Future<List<MediaItem>> getSongsFromArtistAlbum(String artistName, String albumId) async {
-    List<SongInfo> songs = await audioQuery.getSongsFromArtistAlbum(albumId: albumId, artist: artistName);
-    return songs.where((song) => song.isMusic).map((s) => s.toMediaItem()).toList();
+  Future<List<MediaItem>> getSongsFromArtistAlbum(
+      String artistName, String albumId) async {
+    List<SongInfo> songs = await audioQuery.getSongsFromArtistAlbum(
+        albumId: albumId, artist: artistName);
+    return songs
+        .where((song) => song.isMusic)
+        .map((s) => s.toMediaItem())
+        .toList();
   }
 
   Future<List<MediaItem>> getSongsFromPlaylist(PlaylistInfo playlist) async {
-    List<SongInfo> songs = await audioQuery.getSongsFromPlaylist(playlist: playlist);
-    return songs.where((song) => song.isMusic).map((s) => s.toMediaItem()).toList();
+    List<SongInfo> songs =
+        await audioQuery.getSongsFromPlaylist(playlist: playlist);
+    return songs
+        .where((song) => song.isMusic)
+        .map((s) => s.toMediaItem())
+        .toList();
   }
 
   Future<List<AlbumInfo>> getAlbums() async {
@@ -36,7 +55,8 @@ class AudioService {
   }
 
   Future<List<AlbumInfo>> getAlbumsFromArtist(String artistId) async {
-    List<AlbumInfo> albums = await audioQuery.getAlbumsFromArtist(artist: artistId);
+    List<AlbumInfo> albums =
+        await audioQuery.getAlbumsFromArtist(artist: artistId);
     return albums;
   }
 
@@ -46,7 +66,7 @@ class AudioService {
   }
 
   Future<List<GenreInfo>> getGenres() async {
-    List<GenreInfo> genres =  await audioQuery.getGenres();
+    List<GenreInfo> genres = await audioQuery.getGenres();
     return genres;
   }
 
