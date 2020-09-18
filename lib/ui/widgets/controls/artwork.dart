@@ -33,7 +33,8 @@ class Artwork extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting)
           return _loadAssetImage();
 
-        if (snapshot.hasData) return Image.memory(snapshot.data);
+        if (snapshot.hasData && snapshot.data.isNotEmpty)
+          return Image.memory(snapshot.data);
 
         return _loadAssetImage();
       },

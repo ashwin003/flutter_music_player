@@ -13,7 +13,7 @@ Feel free to suggest improvements as well as additional (or missing) functionali
     b. Notification controls
     c. Lock screen controls
 4. Shuffle songs
-5. Loading album artwork v 0.5
+5. Loading album artwork v 1
 
 ## Packages used
 1. [audio_service](https://pub.dev/packages/audio_service) - Service for playing media files in the background

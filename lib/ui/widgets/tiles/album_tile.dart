@@ -12,7 +12,8 @@ class AlbumTile extends StatelessWidget {
   final AlbumInfo albumInfo;
   final ValueSetter<Tuple2<String, dynamic>> actionsHandler;
 
-  const AlbumTile({Key key, @required this.albumInfo, this.actionsHandler}) : super(key: key);
+  const AlbumTile({Key key, @required this.albumInfo, this.actionsHandler})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +24,23 @@ class AlbumTile extends StatelessWidget {
       id: albumInfo.hashCode.toString(),
       onTap: () => _onTap(context),
       actionsHandler: _actionsHandler,
+      resourceType: ResourceType.ALBUM,
+      resourceId: albumInfo.id,
     );
   }
 
   void _onTap(BuildContext context) {
-    var arguments = RequestSongs(
-      albumInfo: albumInfo
-    );
-    Navigator.push(context, MaterialPageRoute(
-      builder: (ctx) {
-        return SongsPage(
-          audioService: AudioService(),
-          request: arguments,
-        );
-      }
-    ));
+    var arguments = RequestSongs(albumInfo: albumInfo);
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+      return SongsPage(
+        audioService: AudioService(),
+        request: arguments,
+      );
+    }));
   }
 
   void _actionsHandler(String action) {
-    if(actionsHandler != null) {
+    if (actionsHandler != null) {
       actionsHandler(Tuple2<String, dynamic>(action, albumInfo.id));
     }
   }

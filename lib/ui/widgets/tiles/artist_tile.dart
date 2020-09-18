@@ -23,6 +23,8 @@ class ArtistTile extends StatelessWidget {
       subtitle: _prepareSubtitle(artistInfo.numberOfAlbums),
       onTap: () => _onTap(context),
       actionsHandler: _actionsHandler,
+      resourceType: ResourceType.ARTIST,
+      resourceId: artistInfo.id,
     );
   }
 
