@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+import 'dart:ui';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+
 import '../extensions/songItemExtensions.dart';
 
 class AudioService {
@@ -31,9 +34,13 @@ class AudioService {
   }
 
   Future<List<MediaItem>> getSongsFromArtistAlbum(
-      String artistName, String albumId) async {
+    String artistName,
+    String albumId,
+  ) async {
     List<SongInfo> songs = await audioQuery.getSongsFromArtistAlbum(
-        albumId: albumId, artist: artistName);
+      albumId: albumId,
+      artist: artistName,
+    );
     return songs
         .where((song) => song.isMusic)
         .map((s) => s.toMediaItem())
@@ -82,5 +89,24 @@ class AudioService {
 
   Future<PlaylistInfo> createPlaylist(String playlistName) async {
     return await FlutterAudioQuery.createPlaylist(playlistName: playlistName);
+  }
+
+  Future<Uint8List> getArtwork(
+    ResourceType resourceType,
+    String resourceId,
+  ) async {
+    return await audioQuery.getArtwork(
+      type: resourceType,
+      id: resourceId,
+    );
+  }
+
+  Future<Uint8List> getSizedArtwork(
+    ResourceType resourceType,
+    String resourceId,
+    Size size,
+  ) async {
+    return await audioQuery.getArtwork(
+        type: resourceType, id: resourceId, size: size);
   }
 }

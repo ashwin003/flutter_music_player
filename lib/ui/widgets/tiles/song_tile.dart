@@ -1,13 +1,14 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 
 import '../../../extensions/durationExtensions.dart';
 import '../controls/artwork.dart';
 
 class SongTile extends StatelessWidget {
   final MediaItem songInfo;
-  final ValueSetter<MediaItem>  onTapped;
+  final ValueSetter<MediaItem> onTapped;
 
   const SongTile(this.songInfo, this.onTapped, {Key key}) : super(key: key);
 
@@ -15,7 +16,7 @@ class SongTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        onTap: (){
+        onTap: () {
           onTapped(songInfo);
         },
         child: ListTile(
@@ -23,9 +24,16 @@ class SongTile extends StatelessWidget {
           leading: Artwork(
             path: songInfo.artUri,
             id: songInfo.id,
+            resourceType: ResourceType.SONG,
+            resourceId: songInfo.extras['id'],
           ),
-          title: Text(songInfo.title,),
-          subtitle: Text(_prepareSubTitle(), maxLines: 2,),
+          title: Text(
+            songInfo.title,
+          ),
+          subtitle: Text(
+            _prepareSubTitle(),
+            maxLines: 2,
+          ),
         ),
       ),
     );
@@ -33,6 +41,6 @@ class SongTile extends StatelessWidget {
 
   String _prepareSubTitle() {
     final Duration duration = Duration(milliseconds: songInfo.duration);
-    return "${songInfo.artist} | ${duration.toTimeString() }";
+    return "${songInfo.artist} | ${duration.toTimeString()}";
   }
 }

@@ -13,6 +13,7 @@ Feel free to suggest improvements as well as additional (or missing) functionali
     b. Notification controls
     c. Lock screen controls
 4. Shuffle songs
+5. Loading album artwork v 0.5
 
 ## Packages used
 1. [audio_service](https://pub.dev/packages/audio_service) - Service for playing media files in the background
@@ -20,4 +21,4 @@ Feel free to suggest improvements as well as additional (or missing) functionali
 3. [just_audio](https://pub.dev/packages/just_audio) - Media player
 
 ## Known issues
-1. Does not load artwork for Android 10
+1. Twitchy artwork in player section

@@ -29,6 +29,7 @@ dependencies:
   just_audio: ^0.1.9
   rxdart: ^0.24.1
   tuple: ^1.0.3
+  solid_bottom_sheet: ^0.1.9
 
 
   # The following adds the Cupertino Icons font to your application.
