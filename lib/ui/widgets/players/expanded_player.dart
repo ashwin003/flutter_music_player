@@ -20,7 +20,9 @@ class ExpandedPlayer extends StatelessWidget {
                 Tuple2<PlaybackState, MediaItem>(playbackState, mediaItem))
         .asBroadcastStream();
 
-    return _buildContents(stream);
+    return Center(
+      child: _buildContents(stream),
+    );
   }
 
   Widget _buildContents(Stream<Tuple2<PlaybackState, MediaItem>> stream) {
@@ -37,6 +39,7 @@ class ExpandedPlayer extends StatelessWidget {
                   snapshot.data.item1,
                 ),
               ],
+              mainAxisAlignment: MainAxisAlignment.center,
             );
           }
         }
