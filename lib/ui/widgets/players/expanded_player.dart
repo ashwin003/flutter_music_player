@@ -26,25 +26,28 @@ class ExpandedPlayer extends StatelessWidget {
   }
 
   Widget _buildContents(Stream<Tuple2<PlaybackState, MediaItem>> stream) {
-    return StreamBuilder(
-      stream: stream,
-      builder: (ctx, AsyncSnapshot<Tuple2<PlaybackState, MediaItem>> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data.item2 != null) {
-            return Column(
-              children: [
-                _buildMediaControls(snapshot.data.item1),
-                _buildSeekBar(
-                  snapshot.data.item2,
-                  snapshot.data.item1,
-                ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            );
+    return SingleChildScrollView(
+      child: StreamBuilder(
+        stream: stream,
+        builder:
+            (ctx, AsyncSnapshot<Tuple2<PlaybackState, MediaItem>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.item2 != null) {
+              return Column(
+                children: [
+                  _buildMediaControls(snapshot.data.item1),
+                  _buildSeekBar(
+                    snapshot.data.item2,
+                    snapshot.data.item1,
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              );
+            }
           }
-        }
-        return Container();
-      },
+          return Container();
+        },
+      ),
     );
   }
 

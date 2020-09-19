@@ -19,6 +19,3 @@ Feel free to suggest improvements as well as additional (or missing) functionali
 1. [audio_service](https://pub.dev/packages/audio_service) - Service for playing media files in the background
 2. [flutter_audio_query](https://pub.dev/packages/flutter_audio_query) - Loads all media from both internal and external storage
 3. [just_audio](https://pub.dev/packages/just_audio) - Media player
-
-## Known issues
-1. Twitchy artwork in player section

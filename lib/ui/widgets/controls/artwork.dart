@@ -5,7 +5,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 
 import '../../../services/audio_service.dart';
 
-class Artwork extends StatelessWidget {
+class Artwork extends StatefulWidget {
   final String path;
   final ResourceType resourceType;
   final String resourceId;
@@ -18,17 +18,35 @@ class Artwork extends StatelessWidget {
     this.resourceType,
     this.resourceId,
   }) : super(key: key);
+
+  @override
+  _ArtworkState createState() => _ArtworkState();
+}
+
+class _ArtworkState extends State<Artwork> {
+  Future<Uint8List> _resourceImage;
+  final _audioService = AudioService();
+
+  @override
+  void initState() {
+    if (widget.resourceId != null) {
+      _resourceImage =
+          _audioService.getArtwork(widget.resourceType, widget.resourceId);
+    }
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final audioService = AudioService();
-    if (resourceId != null) return _loadImageFromResource(audioService);
+    if (widget.resourceId != null) return _loadImageFromResource(_audioService);
 
-    return path == null ? _loadAssetImage() : _loadImageFromPath();
+    return widget.path == null ? _loadAssetImage() : _loadImageFromPath();
   }
 
   Widget _loadImageFromResource(AudioService audioService) {
     return FutureBuilder<Uint8List>(
-      future: audioService.getArtwork(resourceType, resourceId),
+      future: _resourceImage,
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting)
           return _loadAssetImage();
@@ -42,7 +60,7 @@ class Artwork extends StatelessWidget {
   }
 
   Image _loadImageFromPath() =>
-      Image.file(File(path.replaceFirst('file:/', '')));
+      Image.file(File(widget.path.replaceFirst('file:/', '')));
 
   Image _loadAssetImage() => Image.asset("assets/images/default-backdrop.png");
 }
